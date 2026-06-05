@@ -69,7 +69,7 @@ public class DatabaseManager {
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT * FROM categories";
-        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 categories.add(new Category(rs.getInt("id"), rs.getString("name")));
             }
@@ -83,7 +83,7 @@ public class DatabaseManager {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT p.id, p.name, p.price, p.category_id, c.name as category_name " +
                      "FROM products p LEFT JOIN categories c ON p.category_id = c.id";
-        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 products.add(new Product(
                         rs.getInt("id"),

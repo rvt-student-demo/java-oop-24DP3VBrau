@@ -19,6 +19,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return String.format("| %-5d | %-20s |", id, name);
+        return id + " \t " + name;
     }
 }

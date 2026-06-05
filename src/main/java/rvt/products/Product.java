@@ -37,6 +37,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("| %-5d | %-20s | %-10.2f | %-20s |", id, name, price, categoryName != null ? categoryName : "N/A");
+        String cat = categoryName != null ? categoryName : "Nav norādīta";
+        return id + " | " + name + " | " + price + " EUR | " + cat;
     }
 }

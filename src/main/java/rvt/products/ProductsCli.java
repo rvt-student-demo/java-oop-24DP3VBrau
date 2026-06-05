@@ -4,45 +4,38 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ProductsCli {
-    private static final DatabaseManager dbManager = new DatabaseManager();
-    private static final Scanner scanner = new Scanner(System.in);
+    // Sākuma mainīgie
+    static DatabaseManager dbManager = new DatabaseManager();
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("====== Produktu un kategoriju sistēma ======");
         
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             printMenu();
             System.out.print("Jūsu izvēle: ");
             String input = scanner.nextLine();
             
-            switch (input) {
-                case "1":
-                    addCategory();
-                    break;
-                case "2":
-                    addProduct();
-                    break;
-                case "3":
-                    showAllCategories();
-                    break;
-                case "4":
-                    showAllProducts();
-                    break;
-                case "5":
-                    searchProductsByCategory();
-                    break;
-                case "6":
-                    updateProduct();
-                    break;
-                case "7":
-                    deleteProduct();
-                    break;
-                case "0":
-                    System.out.println("Programma pabeigta.");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Nepareiza izvēle, mēģiniet vēlreiz!");
+            if (input.equals("1")) {
+                addCategory();
+            } else if (input.equals("2")) {
+                addProduct();
+            } else if (input.equals("3")) {
+                showAllCategories();
+            } else if (input.equals("4")) {
+                showAllProducts();
+            } else if (input.equals("5")) {
+                searchProductsByCategory();
+            } else if (input.equals("6")) {
+                updateProduct();
+            } else if (input.equals("7")) {
+                deleteProduct();
+            } else if (input.equals("0")) {
+                System.out.println("Programma pabeigta. Atā!");
+                isRunning = false; // iziet no cikla
+            } else {
+                System.out.println("Nepareiza izvēle, mēģiniet vēlreiz!");
             }
         }
     }
@@ -111,13 +104,14 @@ public class ProductsCli {
             System.out.println("Nav nevienas kategorijas datubāzē.");
             return;
         }
-        System.out.println(String.format("+-%-5s-+-%-20s-+", "-----", "--------------------"));
-        System.out.println(String.format("| %-5s | %-20s |", "ID", "Kategorija"));
-        System.out.println(String.format("+-%-5s-+-%-20s-+", "-----", "--------------------"));
-        for (Category c : categories) {
-            System.out.println(c);
+        
+        System.out.println("-----------------------------------");
+        System.out.println("ID \t Kategorija");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println(categories.get(i).getId() + " \t " + categories.get(i).getName());
         }
-        System.out.println(String.format("+-%-5s-+-%-20s-+", "-----", "--------------------"));
+        System.out.println("-----------------------------------");
     }
 
     private static void showAllProducts() {
@@ -195,12 +189,15 @@ public class ProductsCli {
             System.out.println("Netika atrasts neviens produkts.");
             return;
         }
-        System.out.println(String.format("+-%-5s-+-%-20s-+-%-10s-+-%-20s-+", "-----", "--------------------", "----------", "--------------------"));
-        System.out.println(String.format("| %-5s | %-20s | %-10s | %-20s |", "ID", "Nosaukums", "Cena", "Kategorija"));
-        System.out.println(String.format("+-%-5s-+-%-20s-+-%-10s-+-%-20s-+", "-----", "--------------------", "----------", "--------------------"));
+        
+        System.out.println("==========================================================");
+        System.out.println("ID | Nosaukums | Cena (EUR) | Kategorija");
+        System.out.println("==========================================================");
+        
         for (Product p : products) {
-            System.out.println(p);
+            System.out.println(p.toString());
         }
-        System.out.println(String.format("+-%-5s-+-%-20s-+-%-10s-+-%-20s-+", "-----", "--------------------", "----------", "--------------------"));
+        
+        System.out.println("==========================================================");
     }
 }
