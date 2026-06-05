@@ -1,19 +1,36 @@
 package rvt;
 
 public class Teacher extends Person {
-    public String name;
-    public String address;
-    public String pk;
-    public String email;
-    public String darbalaiks;
+    private int salary;
 
-    public Teacher(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
-    public String getName() {
-        return name;
+    public Teacher(String name, String address, int salary) {
+        super(name, address);
+        this.salary = salary;
     }
 
+    public int getSalary() {
+        return this.salary;
+    }
 
+    @Override
+    public String toString() {
+        return super.toString() + "\n  salary " + this.salary + "/month";
+    }
+
+    public static void main(String[] args) {
+        Teacher ada = new Teacher("Ada Lovelace", "24 Maddox St. London W1S 2QN", 1200);
+        Teacher esko = new Teacher("Esko Ukkonen", "Mannerheimintie 15 00100 Helsinki", 5400);
+
+        System.out.println(ada);
+        System.out.println(esko);
+
+        Student ollie = new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028");
+
+        int i = 0;
+        while (i < 25) {
+            ollie.study();
+            i = i + 1;
+        }
+        System.out.println(ollie);
+    }
 }

@@ -1,17 +1,28 @@
 package rvt;
 
 public class Student extends Person {
-    private String stipendijasapmers;
+    private int credits;
 
     public Student() {
+        super("", "");
+        this.credits = 0;
     }
 
     public Student(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
-    public String getName() {
-        return name;
+        super(name, address);
+        this.credits = 0;
     }
 
+    public void study() {
+        this.credits++;
+    }
+
+    public int credits() {
+        return this.credits;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n  study credits " + this.credits;
+    }
 }
